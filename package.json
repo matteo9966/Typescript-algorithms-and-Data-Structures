@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "SET NODE_ENV=dev && tsnd --respawn --debug --files server.ts --watch **/*.ts"
+    "start:dev": "SET NODE_ENV=dev && tsnd --respawn --debug --files index.ts --watch **/*.ts",
+    "start:linked-lists": "SET NODE_ENV=dev && tsnd --respawn --debug --files ./linked-lists/index.ts --watch **/*.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
