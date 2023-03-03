@@ -74,13 +74,11 @@ export class BST<T> {
         } else {
           return current.right;
         }
-
       }
       //ci sono tutti e due
-      const minRight= this.findMin(current.right);
-      current.value=minRight;
-      current.right = this.removeHelper(minRight,current.right);
-    
+      const minRight = this.findMin(current.right);
+      current.value = minRight;
+      current.right = this.removeHelper(minRight, current.right);
     } else if (value < current.value) {
       current.left = this.removeHelper(value, current.left);
     } else {
@@ -89,19 +87,73 @@ export class BST<T> {
     return current;
   }
 
-  findMin(node:BSTNode<T>){
+  findMin(node: BSTNode<T>) {
     let min = node.value;
-    let current = node.left
-    while(current){
-        min = current.value
-        current=current.left
+    let current = node.left;
+    while (current) {
+      min = current.value;
+      current = current.left;
     }
     return min;
   }
 
   search(value: T) {}
-  inorder() {}
-  preorder() {}
-  postorder() {}
+
+  private inorder(node: BSTNode<T> | null, result: T[]) {
+    if (!node) {
+      return;
+    }
+    this.inorder(node.left, result);
+    result.push(node.value);
+    this.inorder(node.right, result);
+  }
+
+  inorderArray(startNode = this.root) {
+    let result: T[] = [];
+    this.inorder(startNode, result);
+    return result;
+  }
+
+  private preorder(node: BSTNode<T> | null, result: T[]) {
+    if (!node) return;
+    result.push(node.value);
+    this.preorder(node.left, result);
+    this.preorder(node.right, result);
+  }
+
+  preorderArray(node = this.root) {
+    let result: T[] = [];
+    this.preorder(node, result);
+    return result;
+  }
+
+  private postorder(node: BSTNode<T> | null, result: T[]) {
+    if (!node) return;
+    this.postorder(node.left, result);
+    this.postorder(node.right, result);
+    result.push(node.value);
+  }
+
+  postorderArray(node = this.root) {
+    let result: T[] = [];
+    this.postorder(node, result);
+    return result;
+  }
+
   breadthFirst() {}
 }
+
+const bst = new BST<number>();
+bst.insert(5);
+bst.insert(7);
+bst.insert(9);
+bst.insert(11);
+bst.insert(3);
+bst.insert(4);
+bst.insert(6);
+// bst.remove(5);
+console.log(bst.inorderArray());
+console.log(bst.preorderArray());
+console.log(bst.postorderArray());
+
+// console.log(util.inspect(bst, {showHidden: false, depth: null, colors: true}));
